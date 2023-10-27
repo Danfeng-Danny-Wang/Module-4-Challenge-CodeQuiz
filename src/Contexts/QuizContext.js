@@ -20,6 +20,33 @@ function reducer(state, action) {
         status: "active",
       };
 
+    case "newAnswer":
+      const question = state.questions.at(state.index);
+
+      return {
+        ...state,
+        answer: action.payload,
+        points:
+          action.payload === question.correctOption
+            ? state.points + question.points
+            : state.points,
+      };
+
+    case "nextQuestion":
+      return {
+        ...state,
+        answer: null,
+        index: state.index + 1,
+      };
+
+    case "finish":
+      console.log("Finish!");
+      console.log("points:", state.points);
+      return {
+        ...state,
+        status: "finished",
+      };
+
     default:
       throw new Error("Unknow Action Type");
   }
