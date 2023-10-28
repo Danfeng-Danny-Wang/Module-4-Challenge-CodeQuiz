@@ -16,6 +16,7 @@ const initialState = {
   secondsRemaining: null,
   name: "",
   scoreList: [],
+  scoreAdded: false,
 };
 
 function reducer(state, action) {
@@ -64,6 +65,11 @@ function reducer(state, action) {
       };
 
     case "submitName":
+      if (state.name === "")
+        return {
+          ...state,
+        };
+
       const currentScore = {
         name: state.name,
         points: state.points,
@@ -72,6 +78,8 @@ function reducer(state, action) {
       return {
         ...state,
         scoreList: [...state.scoreList, currentScore],
+        name: "",
+        scoreAdded: true,
       };
 
     case "restart":
@@ -112,6 +120,7 @@ function QuizProvider({ children }) {
       secondsRemaining,
       name,
       scoreList,
+      scoreAdded,
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -138,6 +147,7 @@ function QuizProvider({ children }) {
         secondsRemaining,
         name,
         scoreList,
+        scoreAdded,
       }}
     >
       {children}

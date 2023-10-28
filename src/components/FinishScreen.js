@@ -1,8 +1,21 @@
 import { useQuiz } from "../Contexts/QuizContext";
 
+function comparePoints(a, b) {
+  return b.points - a.points;
+}
+
 function FinishScreen() {
-  const { points, maxPossiblePoints, highscore, dispatch, name, scoreList } =
-    useQuiz();
+  const {
+    points,
+    maxPossiblePoints,
+    highscore,
+    dispatch,
+    name,
+    scoreList,
+    scoreAdded,
+  } = useQuiz();
+
+  const sortedScoreList = scoreList.slice().sort(comparePoints);
 
   return (
     <>
@@ -23,6 +36,7 @@ function FinishScreen() {
         <input
           value={name}
           placeholder="Your name..."
+          disabled={scoreAdded}
           onChange={(e) =>
             dispatch({ type: "enterName", payload: e.target.value })
           }
@@ -35,7 +49,7 @@ function FinishScreen() {
         </button>
         <div>
           <ul>
-            {scoreList.map((score, index) => (
+            {sortedScoreList.map((score, index) => (
               <li
                 key={index}
               >{`Name: ${score.name} --- ${score.points} points`}</li>
