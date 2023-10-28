@@ -7,8 +7,9 @@ function Question() {
 
   return (
     <div>
-      <h4>question:</h4>
-      <h4>{question.question}</h4>
+      <h4>
+        Question {index + 1}: {question.question}
+      </h4>
       <Options question={question} />
     </div>
   );

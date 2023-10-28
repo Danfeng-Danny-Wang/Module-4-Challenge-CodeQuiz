@@ -6,9 +6,9 @@ function QuestionResult() {
   if (answer === null) return null;
 
   return (
-    <div>
+    <h4>
       <strong>{result ? "Correct!" : "Wrong!"}</strong>
-    </div>
+    </h4>
   );
 }
 

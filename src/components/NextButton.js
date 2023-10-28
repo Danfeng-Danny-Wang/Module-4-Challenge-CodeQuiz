@@ -6,12 +6,22 @@ function NextButton() {
 
   if (index < numQuestions - 1)
     return (
-      <button onClick={() => dispatch({ type: "nextQuestion" })}>Next!</button>
+      <button
+        className="btn btn-ui"
+        onClick={() => dispatch({ type: "nextQuestion" })}
+      >
+        Next!
+      </button>
     );
 
   if (index === numQuestions - 1)
     return (
-      <button onClick={() => dispatch({ type: "finish" })}>Finish!</button>
+      <button
+        className="btn btn-ui"
+        onClick={() => dispatch({ type: "finish" })}
+      >
+        Finish!
+      </button>
     );
 }
 

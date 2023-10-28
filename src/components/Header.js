@@ -16,12 +16,21 @@ function Header() {
   );
 
   return (
-    <div>
-      <button onClick={() => dispatch({ type: "finish" })}>
-        <h4>View High Scores</h4>
-      </button>
-      <span>Time: {status === "finished" ? 0 : secondsRemaining}</span>
-    </div>
+    <header className="app-header">
+      <div>
+        <button
+          className="btn"
+          style={{ fontSize: "1.2rem", padding: "0.3rem 0.6rem" }}
+          onClick={() => dispatch({ type: "finish" })}
+        >
+          View High Scores
+        </button>
+      </div>
+      <h1>JavaScript Code Quiz</h1>
+      <div className="timer">
+        Time: {status === "finished" ? 0 : secondsRemaining}
+      </div>
+    </header>
   );
 }
 

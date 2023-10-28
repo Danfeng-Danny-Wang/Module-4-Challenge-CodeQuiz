@@ -12,7 +12,7 @@ function App() {
   const { status } = useQuiz();
 
   return (
-    <div>
+    <div className="app">
       <Header />
 
       <Main>

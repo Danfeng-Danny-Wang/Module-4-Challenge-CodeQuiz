@@ -4,10 +4,15 @@ function StartScreen() {
   const { numQuestions, dispatch } = useQuiz();
 
   return (
-    <div>
+    <div className="start">
       <h2>Welcome to the JavaScript Code Quiz</h2>
       <h3>{numQuestions} questions to test your JavaScript knowledge!</h3>
-      <button onClick={() => dispatch({ type: "start" })}>Gooooo!</button>
+      <button
+        className="btn btn-ui"
+        onClick={() => dispatch({ type: "start" })}
+      >
+        Gooooo!
+      </button>
     </div>
   );
 }
