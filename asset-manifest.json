@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Module-4-Challenge-CodeQuiz/static/css/main.5f81c9f5.css",
+    "main.js": "/Module-4-Challenge-CodeQuiz/static/js/main.75df74c1.js",
+    "index.html": "/Module-4-Challenge-CodeQuiz/index.html",
+    "main.5f81c9f5.css.map": "/Module-4-Challenge-CodeQuiz/static/css/main.5f81c9f5.css.map",
+    "main.75df74c1.js.map": "/Module-4-Challenge-CodeQuiz/static/js/main.75df74c1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5f81c9f5.css",
+    "static/js/main.75df74c1.js"
+  ]
+}
