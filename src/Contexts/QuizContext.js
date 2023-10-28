@@ -9,7 +9,9 @@ const initialState = {
   status: "ready",
   index: 0,
   answer: null,
+  result: null,
   points: 0,
+  highscore: 0,
 };
 
 function reducer(state, action) {
@@ -26,6 +28,7 @@ function reducer(state, action) {
       return {
         ...state,
         answer: action.payload,
+        result: action.payload === question.correctOption,
         points:
           action.payload === question.correctOption
             ? state.points + question.points
@@ -36,15 +39,23 @@ function reducer(state, action) {
       return {
         ...state,
         answer: null,
+        result: null,
         index: state.index + 1,
       };
 
     case "finish":
-      console.log("Finish!");
-      console.log("points:", state.points);
       return {
         ...state,
         status: "finished",
+        highscore:
+          state.points > state.highscore ? state.points : state.highscore,
+      };
+
+    case "restart":
+      return {
+        ...initialState,
+        highscore: state.highscore,
+        status: "ready",
       };
 
     default:
@@ -53,12 +64,16 @@ function reducer(state, action) {
 }
 
 function QuizProvider({ children }) {
-  const [{ questions, status, index, answer, points }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [
+    { questions, status, index, answer, points, highscore, result },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   const numQuestions = questions.length;
+  const maxPossiblePoints = questions.reduce(
+    (prev, cur) => prev + cur.points,
+    0
+  );
 
   return (
     <QuizContext.Provider
@@ -69,7 +84,10 @@ function QuizProvider({ children }) {
         index,
         answer,
         points,
+        highscore,
+        result,
         numQuestions,
+        maxPossiblePoints,
       }}
     >
       {children}

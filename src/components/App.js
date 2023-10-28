@@ -6,6 +6,7 @@ import Question from "./Question";
 import Footer from "./Footer";
 import NextButton from "./NextButton";
 import FinishScreen from "./FinishScreen";
+import QuestionResult from "./QuestionResult";
 
 function App() {
   const { status } = useQuiz();
@@ -20,6 +21,7 @@ function App() {
           <>
             <Question />
             <Footer>
+              <QuestionResult />
               <NextButton />
             </Footer>
           </>
