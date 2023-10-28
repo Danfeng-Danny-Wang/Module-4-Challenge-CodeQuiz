@@ -14,6 +14,8 @@ const initialState = {
   points: 0,
   highscore: 0,
   secondsRemaining: null,
+  name: "",
+  scoreList: [],
 };
 
 function reducer(state, action) {
@@ -54,11 +56,30 @@ function reducer(state, action) {
           state.points > state.highscore ? state.points : state.highscore,
       };
 
+    case "enterName":
+      return {
+        ...state,
+        name: action.payload,
+      };
+
+    case "submitName":
+      const currentScore = {
+        name: state.name,
+        points: state.points,
+      };
+
+      return {
+        ...state,
+        scoreList: [...state.scoreList, currentScore],
+      };
+
     case "restart":
       return {
         ...initialState,
         highscore: state.highscore,
+        scoreList: state.scoreList,
         status: "ready",
+        name: "",
       };
 
     case "tick":
@@ -66,7 +87,6 @@ function reducer(state, action) {
         return {
           ...state,
         };
-
       return {
         ...state,
         secondsRemaining: state.secondsRemaining - 1,
@@ -89,6 +109,8 @@ function QuizProvider({ children }) {
       highscore,
       result,
       secondsRemaining,
+      name,
+      scoreList,
     },
     dispatch,
   ] = useReducer(reducer, initialState);
@@ -113,6 +135,8 @@ function QuizProvider({ children }) {
         numQuestions,
         maxPossiblePoints,
         secondsRemaining,
+        name,
+        scoreList,
       }}
     >
       {children}

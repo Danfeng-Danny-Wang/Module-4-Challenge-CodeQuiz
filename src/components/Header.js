@@ -17,8 +17,10 @@ function Header() {
 
   return (
     <div>
-      <h4>View High Scores</h4>
-      <p>Time: {status === "finished" ? 0 : secondsRemaining}</p>
+      <button onClick={() => dispatch({ type: "finish" })}>
+        <h4>View High Scores</h4>
+      </button>
+      <span>Time: {status === "finished" ? 0 : secondsRemaining}</span>
     </div>
   );
 }
