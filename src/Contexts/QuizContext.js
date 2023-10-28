@@ -29,15 +29,16 @@ function reducer(state, action) {
 
     case "newAnswer":
       const question = state.questions.at(state.index);
+      const ifCorrectAnswer = action.payload === question.correctOption;
 
       return {
         ...state,
         answer: action.payload,
-        result: action.payload === question.correctOption,
-        points:
-          action.payload === question.correctOption
-            ? state.points + question.points
-            : state.points,
+        result: ifCorrectAnswer,
+        points: ifCorrectAnswer ? state.points + question.points : state.points,
+        secondsRemaining: ifCorrectAnswer
+          ? state.secondsRemaining
+          : state.secondsRemaining - 5,
       };
 
     case "nextQuestion":
@@ -90,7 +91,7 @@ function reducer(state, action) {
       return {
         ...state,
         secondsRemaining: state.secondsRemaining - 1,
-        status: state.secondsRemaining === 0 ? "finished" : state.status,
+        status: state.secondsRemaining <= 0 ? "finished" : state.status,
       };
 
     default:
