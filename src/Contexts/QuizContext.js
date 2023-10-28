@@ -4,6 +4,7 @@ import questionsList from "../data/questions.json";
 
 const QuizContext = createContext();
 
+const SECS_PER_QUESTION = 10;
 const initialState = {
   questions: questionsList.questions,
   status: "ready",
@@ -12,6 +13,7 @@ const initialState = {
   result: null,
   points: 0,
   highscore: 0,
+  secondsRemaining: null,
 };
 
 function reducer(state, action) {
@@ -20,6 +22,7 @@ function reducer(state, action) {
       return {
         ...state,
         status: "active",
+        secondsRemaining: state.questions.length * SECS_PER_QUESTION,
       };
 
     case "newAnswer":
@@ -58,6 +61,18 @@ function reducer(state, action) {
         status: "ready",
       };
 
+    case "tick":
+      if (state.status !== "active")
+        return {
+          ...state,
+        };
+
+      return {
+        ...state,
+        secondsRemaining: state.secondsRemaining - 1,
+        status: state.secondsRemaining === 0 ? "finished" : state.status,
+      };
+
     default:
       throw new Error("Unknow Action Type");
   }
@@ -65,7 +80,16 @@ function reducer(state, action) {
 
 function QuizProvider({ children }) {
   const [
-    { questions, status, index, answer, points, highscore, result },
+    {
+      questions,
+      status,
+      index,
+      answer,
+      points,
+      highscore,
+      result,
+      secondsRemaining,
+    },
     dispatch,
   ] = useReducer(reducer, initialState);
 
@@ -88,6 +112,7 @@ function QuizProvider({ children }) {
         result,
         numQuestions,
         maxPossiblePoints,
+        secondsRemaining,
       }}
     >
       {children}
